@@ -2,8 +2,6 @@ import qiniu from 'qiniu.js'
 import crypto from 'crypto-browserify'
 import config from '@/config/bucket.json'
 
-console.log(crypto)
-
 const isString = (value) => typeof value === 'string'
 const safeEncode = (str) => btoa(str).replace(/\//g, '_').replace(/\+/g, '-')
 const encodeSign = (str, key) => crypto
