@@ -4,7 +4,10 @@ const routerConfig = {
   routes: [
     {
       name: 'Admin',
-      path: '/'
+      path: '/',
+      children: [
+        'Dashboard'
+      ]
     }
   ]
 }
