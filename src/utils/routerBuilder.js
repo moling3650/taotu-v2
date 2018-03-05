@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const createRoutes = routes => {
+const createRoutes = (routes, prefix = '') => {
   return routes.map(routeConfig => {
     const route = Object.assign({}, { name: routeConfig }, routeConfig)
     if (!route.name) {
@@ -13,7 +13,10 @@ const createRoutes = routes => {
       route.path = `/${route.name}`
     }
     if (!route.component) {
-      route.component = () => import(`@/router-components/${route.name}`)
+      route.component = () => import(`@/router-components${prefix}/${route.name}`)
+    }
+    if (route.children) {
+      route.children = createRoutes(route.children, route.path === '/' ? `/${route.name}` : route.path)
     }
     return route
   })
