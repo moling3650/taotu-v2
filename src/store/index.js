@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import albums from '@/store/modules/albums'
+import categories from '@/store/modules/categories'
 import bucket from '@/models/bucket'
 import Model from '@/models/Model'
 
@@ -31,6 +33,10 @@ const store = new Vuex.Store({
     getConfig ({ commit }) {
       return configModel.fetch().then(config => commit('setConfig', config))
     }
+  },
+  modules: {
+    albums,
+    categories
   },
   strict: process.env.NODE_ENV !== 'production'
 })
