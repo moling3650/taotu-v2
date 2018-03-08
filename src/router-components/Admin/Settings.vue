@@ -42,10 +42,9 @@
 </template>
 
 <script>
-import swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
 import bucket from '@/models/bucket'
-import i18n from '@/utils/i18n'
+import { successMessage, errorMessage } from '@/utils/messages'
 
 export default {
   name: 'Settings',
@@ -84,8 +83,8 @@ export default {
         .then(backgroundURL => this.$set(this.config, 'background', backgroundURL))
         .then(() => this.$store.dispatch('updateConfig', this.config))
         .then(() => this.reset())
-        .then(() => swal({title: i18n('update succeed'), type: 'success', timer: 2000}))
-        .catch(err => swal({title: i18n(err.message || 'something went wrong'), type: 'error', timer: 2000}))
+        .then(() => successMessage('update succeed', 2000))
+        .catch(err => errorMessage(err.message || 'something went wrong', 2000))
     }
   },
   mounted () {
