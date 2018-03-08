@@ -9,6 +9,7 @@ const routerConfig = {
         'Dashboard',
         'Settings',
         'Categories',
+        'Albums',
         {
           name: 'Category',
           path: '/categories/:name'
