@@ -32,6 +32,9 @@ const store = new Vuex.Store({
     },
     getConfig ({ commit }) {
       return configModel.fetch().then(config => commit('setConfig', config))
+    },
+    updateConfig ({ commit, getters }, config) {
+      return configModel.saveToCloud(getters.keys, config).then(() => commit('setConfig', config))
     }
   },
   modules: {
