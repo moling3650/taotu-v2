@@ -46,7 +46,7 @@ export default {
   ]),
   methods: {
     search () {
-      if (!this.query) {
+      if (this.query) {
         const query = new RegExp(this.query)
         this.categories = this.allCategories.filter(c => query.test(c.name) || query.test(c.title))
       } else {
