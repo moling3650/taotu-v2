@@ -22,11 +22,11 @@
     <h3>{{'rates of categories' | i18n}}</h3>
 
     <div class="progress">
-      <div v-for="category in allCategories" :key="category.title"
+      <div v-for="category in categoriesInfo" :key="category.title"
           :class="pickBarClass()" :style="{ width: category.rate * 100 + '%' }"></div>
     </div>
     <div class="progress-labels">
-      <div v-for="category in allCategories" :key="category.title" v-if="category.rate > 0" class="progress-label"
+      <div v-for="category in categoriesInfo" :key="category.title" v-if="category.rate > 0" class="progress-label"
           :style="{ width: category.rate * 100 + '%' }">{{category.title}}</div>
     </div>
   </div>
@@ -38,23 +38,25 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Dashboard',
   computed: mapGetters([
-    'allCategories',
+    'categoriesInfo',
     'allCategoriesCount',
     'allAlbumsCount',
     'allPhotosCount'
   ]),
   methods: {
-    *pickBarClass () {
+    pickBarClass: (function () {
       const colors = ['success', 'primary', 'info', 'warning', 'danger']
       let last = null
-      while (true) {
-        const color = `progress-bar-${colors[Math.round(Math.random() * (colors.length - 1))]}`
-        if (color !== last) {
-          last = color
-          yield `progress-bar ${color}`
+      return function pickBarClass () {
+        while (true) {
+          const color = `progress-bar-${colors[Math.round(Math.random() * (colors.length - 1))]}`
+          if (color !== last) {
+            last = color
+            return `progress-bar ${color}`
+          }
         }
       }
-    }
+    })()
   }
 }
 </script>
