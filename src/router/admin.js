@@ -7,7 +7,8 @@ const routerConfig = {
       path: '/',
       children: [
         'Dashboard',
-        'Settings'
+        'Settings',
+        'Categories'
       ]
     }
   ]
