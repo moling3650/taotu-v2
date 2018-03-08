@@ -51,4 +51,17 @@ bucket.fetchPutToken = (password, scope = null) => {
     })
 }
 
+/**
+ * 通过密码上传文件
+ * @param  String|Object password   密码或密钥
+ * @param  String        filename   文件名
+ * @param  Object        file       文件对象
+ * @return Promise                  访问文件的URL
+ */
+bucket.uploadFile = (password, filename, file) => {
+  return bucket.fetchPutToken(password, filename)
+    .then(putToken => bucket.putFile(filename, file, {putToken}))
+    .then(() => bucket.key(filename).url())
+}
+
 export default bucket
