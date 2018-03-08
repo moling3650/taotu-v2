@@ -8,7 +8,11 @@ const routerConfig = {
       children: [
         'Dashboard',
         'Settings',
-        'Categories'
+        'Categories',
+        {
+          name: 'Category',
+          path: '/categories/:name'
+        }
       ]
     }
   ]
