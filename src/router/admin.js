@@ -6,7 +6,8 @@ const routerConfig = {
       name: 'Admin',
       path: '/',
       children: [
-        'Dashboard'
+        'Dashboard',
+        'Settings'
       ]
     }
   ]
