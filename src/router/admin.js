@@ -13,6 +13,10 @@ const routerConfig = {
         {
           name: 'Category',
           path: '/categories/:name'
+        },
+        {
+          name: 'Album',
+          path: '/albums/:key'
         }
       ]
     }
