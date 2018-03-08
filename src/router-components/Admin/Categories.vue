@@ -54,7 +54,7 @@ export default {
       }
     }
   },
-  mounted () {
+  activated () {
     this.categories = [...this.allCategories]
   }
 }
