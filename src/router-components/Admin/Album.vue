@@ -74,6 +74,12 @@ export default {
   }),
   methods: {
     submit () {
+      if (!this.album.title || !this.album.title.trim()) {
+        return errorMessage('相册标题不能为空', 1500)
+      }
+      if (this.album.title === 'new') {
+        return errorMessage('相册标题不能为new', 1500)
+      }
       const files = [...this.photosToUpload.values()]
       bucket.fetchPutToken(this.password)
         .then(putToken => this.uploadFiles(putToken, files))
