@@ -6,8 +6,8 @@
 
     <div class="row">
       <ul class="nav nav-pills col-sm-7">
-        <li role="presentation" @click="showAllAlbums"><a>{{'all' | i18n}}</a></li>
-        <li role="presentation" v-for="category in allCategories" :key="category.name" @click="showByCategory(category.name)"><a>{{category.title}}</a></li>
+        <li role="presentation" @click="search(null)"><a>{{'all' | i18n}}</a></li>
+        <li role="presentation" v-for="category in allCategories" :key="category.name" @click="search(`categoryName:${category.name}`)"><a>{{category.title}}</a></li>
       </ul>
 
       <form class="form-inline pull-right">
@@ -17,8 +17,8 @@
           </router-link>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" v-model="query">
-          <button class="btn" @click.prevent="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          <input type="text" class="form-control" v-model="keyword">
+          <button class="btn" @click.prevent="search(keyword)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             {{'search' | i18n}}
           </button>
         </div>
@@ -32,7 +32,7 @@
         :to="{ path: `/albums/${album.title}` }"
       >
         <h3 class="album-title">{{album.title}} <span class="category">{{album.category}}</span></h3>
-        <img :data-src="album.photos[0]" :alt="album.title" class="lazyload">
+        <img :src="album.photos[0]" :alt="album.title">
       </router-link>
     </div>
   </div>
@@ -40,40 +40,39 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import 'lazysizes/lazysizes.min'
 
 export default {
   name: 'Albums',
   data () {
     return {
       query: '',
-      albums: []
+      keyword: ''
     }
   },
-  computed: mapGetters([
-    'allAlbums',
-    'allCategories'
-  ]),
-  methods: {
-    search () {
-      if (this.query) {
-        const query = new RegExp(this.query)
-        this.albums = this.allAlbums.filter(a => query.test(a.title))
+  computed: {
+    ...mapGetters([
+      'allAlbums',
+      'allCategories'
+    ]),
+    albums () {
+      if (!this.query) {
+        return this.allAlbums
+      } else if (this.query.startsWith('categoryName:')) {
+        const categoryName = this.query.split(':', 2).pop()
+        return this.allAlbums.filter(a => a.category === categoryName)
       } else {
-        this.showAllAlbums()
+        const query = new RegExp(this.query)
+        return this.allAlbums.filter(a => query.test(a.title))
       }
-    },
-    showAllAlbums () {
-      this.albums = [...this.allAlbums]
-    },
-    showByCategory (categoryName) {
-      if (categoryName) {
-        this.albums = this.allAlbums.filter(a => a.category === categoryName)
-      }
+    }
+  },
+  methods: {
+    search (keyword) {
+      this.query = keyword
     }
   },
   activated () {
-    this.showAllAlbums()
+    this.query = ''
   }
 }
 </script>
