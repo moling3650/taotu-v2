@@ -6,6 +6,10 @@ const routerConfig = {
     {
       name: 'Landing',
       path: '/'
+    },
+    {
+      name: 'Category',
+      path: '/Category/:name'
     }
   ]
 }
