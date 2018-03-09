@@ -2,19 +2,19 @@
   <div id="content">
     <div id="content-categories" v-if="categories">
       <router-link v-for="category in categories" :key="category.name" :to="{ path: `/category/${category.name}` }">
-        <category :category="category"/>
+        <category-item :category="category"/>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Category from '@/components/Category'
+import CategoryItem from '@/components/CategoryItem'
 
 export default {
   name: 'LandingContent',
   components: {
-    Category
+    CategoryItem
   },
   props: ['categories']
 }
