@@ -77,7 +77,7 @@ export default {
       const files = [...this.photosToUpload.values()]
       bucket.fetchPutToken(this.password)
         .then(putToken => this.uploadFiles(putToken, files))
-        .then(urls => [...urls, ...this.album.photos.filter(url => !url.startsWith('blob:'))])
+        .then(urls => [...this.album.photos.filter(url => !url.startsWith('blob:')), ...urls])
         .then(photos => this.$set(this.album, 'photos', photos))
         .then(() => this.$store.dispatch('updateAlbum', this.album))
         .then(() => successMessage('update succeed', 1500))
