@@ -41,9 +41,9 @@ export default {
       categories: []
     }
   },
-  computed: mapGetters([
-    'allCategories'
-  ]),
+  computed: mapGetters({
+    allCategories: 'categoriesInfo'
+  }),
   methods: {
     search () {
       if (this.query) {
