@@ -23,7 +23,7 @@
     <div class="row">
       <router-link class="category img-rounded" v-for="category in categories" :key="category.name" :to="{ path: `/categories/${category.name}` }">
         <h1 class="category-title">{{category.title}} ({{category.albumsCount}})</h1>
-        <img :data-src="category.cover" :alt="category.title" class="lazyload">
+        <img :src="category.cover" :alt="category.title">
       </router-link>
     </div>
   </div>
@@ -31,7 +31,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import 'lazysizes/lazysizes.min'
 
 export default {
   name: 'Categories',
