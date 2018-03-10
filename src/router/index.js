@@ -14,7 +14,8 @@ const routerConfig = {
     {
       name: 'Album',
       path: '/album/:title'
-    }
+    },
+    'Search'
   ]
 }
 
